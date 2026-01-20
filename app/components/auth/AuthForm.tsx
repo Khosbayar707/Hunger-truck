@@ -1,61 +1,118 @@
 "use client";
 
-import * as Label from "@radix-ui/react-label";
-import { Button, Text } from "@radix-ui/themes";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { MailIcon, AlertCircle } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export function AuthForm() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
   const isValid = email.includes("@");
 
-  async function handleLogin() {
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    if (!isValid || loading) return;
+
     setLoading(true);
-    await supabase.auth.signInWithOtp({ email });
+    setError("");
+
+    const redirectTo = process.env.NEXT_PUBLIC_SITE_URL + "/auth/callback";
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: redirectTo,
+      },
+    });
+
+    if (error) {
+      setError(error.message);
+    } else {
+      setSubmitted(true);
+    }
+
     setLoading(false);
   }
 
-  return (
-    <div className="space-y-6">
-      <div className="space-y-2 text-left">
-        <Label.Root className="text-sm font-medium">Email address</Label.Root>
+  /* ───────────── Success ───────────── */
+  if (submitted) {
+    return (
+      <div className="space-y-4 text-center">
+        <p className="text-sm text-muted-foreground">
+          We sent a sign-in link to
+        </p>
 
-        <input
-          type="email"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="
-            w-full rounded-lg border border-input
-            bg-background px-4 py-3 text-sm
-            focus:outline-none focus:ring-2 focus:ring-ring
-            transition
-          "
-        />
-      </div>
+        <p className="text-sm font-medium break-all">{email}</p>
 
-      <div className="space-y-3">
+        <p className="text-xs text-muted-foreground">
+          Check your inbox (and spam folder).
+        </p>
+
         <Button
-          size="3"
-          variant="solid"
-          color="violet"
-          loading={loading}
-          disabled={!isValid}
-          onClick={handleLogin}
+          variant="secondary"
           className="w-full"
+          onClick={() => {
+            setSubmitted(false);
+            setEmail("");
+          }}
         >
-          Send magic link
+          Use a different email
         </Button>
+      </div>
+    );
+  }
 
-        <Text size="1" color="gray" align="center">
-          We’ll email you a secure sign-in link.
-        </Text>
+  /* ───────────── Form ───────────── */
+  return (
+    <form onSubmit={handleLogin} className="space-y-5">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email address</Label>
+
+        <div className="relative">
+          <Input
+            id="email"
+            type="email"
+            placeholder="  you@example.com"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError("");
+            }}
+            disabled={loading}
+            className={`pl-10 ${
+              error ? "border-red-500 focus-visible:ring-red-500" : ""
+            }`}
+          />
+        </div>
+
+        {!error && (
+          <p className="text-xs text-muted-foreground">
+            We’ll email you a magic sign-in link.
+          </p>
+        )}
+
+        {error && (
+          <div className="flex items-center gap-2 text-sm text-red-600">
+            <AlertCircle className="h-4 w-4" />
+            <span>{error}</span>
+          </div>
+        )}
       </div>
 
-      <Text size="1" color="gray" align="center">
-        No passwords. No spam.
-      </Text>
-    </div>
+      <Button type="submit" disabled={!isValid || loading} className="w-full">
+        {loading ? "Sending…" : "Send magic link"}
+      </Button>
+
+      <p className="text-center text-xs text-muted-foreground">
+        No passwords. No tracking.
+      </p>
+    </form>
   );
 }
