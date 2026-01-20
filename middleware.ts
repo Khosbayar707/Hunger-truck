@@ -27,14 +27,21 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
-    const loginUrl = new URL("/login", request.url);
-    return NextResponse.redirect(loginUrl);
+  const pathname = request.nextUrl.pathname;
+
+  // 🔓 Allow auth pages
+  if (pathname.startsWith("/auth") || pathname === "/login") {
+    return response;
+  }
+
+  // 🔒 Protect dashboard
+  if (!user && pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return response;
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/auth/:path*", "/login"],
 };
