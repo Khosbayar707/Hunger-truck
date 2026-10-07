@@ -5,7 +5,6 @@ import { FastDial } from '../charts';
 import { IconCalendar, IconCheck, IconChevron, IconEdit, IconTimer } from '../icons';
 import { Badge, Group, GroupTitle, Row, Screen, Skeleton, useNow, useUI } from '../ui';
 import { GOALS } from '../Sheets';
-import { MotivationCard } from '../Advice';
 import { replaceAll, useData, useHydrated } from '@/lib/store';
 import { cancelPlannedFast, endFast, startPlannedNow } from '@/lib/actions';
 import { addFastToCalendar, addPlanToCalendar, calendarState } from '@/lib/calendar';
@@ -17,14 +16,12 @@ export const goalLabel = (h: number) => GOALS.find((g) => g.h === h)?.label ?? `
 export default function Fast() {
   const hydrated = useHydrated();
   const d = useData();
-  const now = useNow(15_000);
   const goal = d.activeFast?.targetHours ?? d.profile.fastingGoalH;
   return (
     <Screen title="Мацаг" sub={hydrated ? `${goal} цаг мацаг · ${Math.max(0, 24 - goal)} цаг хооллох цонх` : ' '}>
       {hydrated ? (
         <>
           <Current d={d} />
-          <MotivationCard d={d} now={now} />
           <History d={d} />
           <p className="mt-8 px-1 text-footnote leading-relaxed text-ink-2">
             Мацаг барих үед толгой эргэх, ухаан балартах зэрэг зовиур илэрвэл мацгаа зогсоож, шаардлагатай бол мэргэжлийн
