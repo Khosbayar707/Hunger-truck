@@ -154,7 +154,7 @@ function HungerSheet({ open, onClose }: SP) {
         aria-live="polite"
       >
         <p
-          className="text-[72px] leading-none font-light tracking-[-0.04em] tnum transition-colors duration-200"
+          className="text-[60px] leading-none font-light tracking-[-0.04em] tnum transition-colors duration-200"
           style={{ color: value ? 'var(--amber-ink)' : 'var(--ink-3)' }}
         >
           {value ?? '–'}
@@ -298,7 +298,7 @@ function WeightSheet({ open, onClose }: SP) {
             value={val}
             onChange={(e) => setVal(e.target.value)}
             placeholder="0.0"
-            className="w-[4.2ch] bg-transparent text-center text-[56px] leading-none font-light tracking-[-0.04em] tnum outline-none placeholder:text-ink-2"
+            className="w-[4.2ch] bg-transparent text-center text-[48px] leading-none font-light tracking-[-0.04em] tnum outline-none placeholder:text-ink-2"
           />
           <span className="text-lg text-ink-2">кг</span>
         </label>
@@ -385,7 +385,7 @@ function SleepSheet({ open, onClose }: SP) {
       </div>
       <div className="py-8 text-center">
         <p className="text-sm text-ink-2">Нийт нойр</p>
-        <p className="mt-1 text-[44px] leading-none font-light tracking-[-0.03em] tnum">{valid ? shortDur(dur) : '–'}</p>
+        <p className="mt-1 text-[38px] leading-none font-light tracking-[-0.03em] tnum">{valid ? shortDur(dur) : '–'}</p>
         {already && <p className="mt-3 text-sm text-ink-2">Энэ өдөр нойр бүртгэгдсэн байна. Шинэ бүртгэл нэмэгдэнэ.</p>}
       </div>
     </Sheet>
@@ -406,7 +406,7 @@ function WaterSheet({ open, onClose }: SP) {
   };
   return (
     <Sheet open={open} onClose={onClose} title="Ус">
-      <p className="text-[44px] leading-none font-light tracking-[-0.03em] text-blue-ink tnum">
+      <p className="text-[38px] leading-none font-light tracking-[-0.03em] text-blue-ink tnum">
         {(total / 1000).toFixed(1)}
         <span className="ml-1.5 text-lg text-ink-2">/ {(d.profile.waterGoalMl / 1000).toFixed(1)} л</span>
       </p>
@@ -648,7 +648,7 @@ function FastStartSheet({ open, onClose }: SP) {
               role="radio"
               aria-checked={when === w}
               onClick={() => setWhen(w)}
-              className={`min-h-[48px] rounded-[12px] text-[15px] font-medium transition-colors duration-200 ${
+              className={`min-h-[48px] rounded-[12px] text-[14px] font-medium transition-colors duration-200 ${
                 when === w ? 'bg-green-soft text-green-ink shadow-[inset_0_0_0_1.5px_var(--green)]' : 'bg-fill-2 text-ink'
               }`}
             >
@@ -721,7 +721,7 @@ function FastEditSheet({ open, onClose }: SP) {
 /* ---------- record details ---------- */
 function DetailRow({ k, v }: { k: string; v: React.ReactNode }) {
   return (
-    <div className="row-sep flex min-h-[48px] items-center justify-between gap-4 text-[15px]">
+    <div className="row-sep flex min-h-[48px] items-center justify-between gap-4 text-[14px]">
       <dt className="text-ink-2">{k}</dt>
       <dd className="text-right tnum">{v}</dd>
     </div>

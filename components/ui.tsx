@@ -147,13 +147,13 @@ export function Screen({
         }}
       >
         <div className="mx-auto flex h-[calc(env(safe-area-inset-top)+44px)] max-w-[34rem] items-end justify-center px-5 pb-2.5">
-          <span className="text-[15px] font-semibold tracking-[-0.01em]">{title}</span>
+          <span className="text-[14px] font-semibold tracking-[-0.01em]">{title}</span>
         </div>
       </div>
       <main className="rise-in mx-auto w-full max-w-[34rem] px-4 pt-[calc(env(safe-area-inset-top)+14px)] pb-[calc(env(safe-area-inset-bottom)+112px)]">
         <header className="mb-5 flex items-end justify-between gap-3 px-1">
           <div>
-            <h1 className="text-[30px] leading-[1.15] font-semibold tracking-[-0.03em]">{title}</h1>
+            <h1 className="text-[26px] leading-[1.15] font-semibold tracking-[-0.03em]">{title}</h1>
             {sub && <p className="mt-0.5 text-footnote font-medium text-ink-2">{sub}</p>}
           </div>
           {accessory}
@@ -180,7 +180,7 @@ export function GroupTitle({
   return (
     <div className={`${first ? "mt-1" : "mt-8"} mb-2.5 flex items-end justify-between gap-3 px-1`}>
       <div>
-        <h2 className="text-[19px] font-semibold tracking-[-0.02em]">{title}</h2>
+        <h2 className="text-[17px] font-semibold tracking-[-0.02em]">{title}</h2>
         {note && <p className="mt-0.5 text-footnote text-ink-2">{note}</p>}
       </div>
       {aside}
@@ -277,7 +277,7 @@ export function Segmented<T extends string | number>({
             role="radio"
             aria-checked={on}
             onClick={() => onChange(o.value)}
-            className={`relative z-[1] min-h-[36px] flex-1 rounded-[10px] text-[13px] transition-colors duration-200 ${
+            className={`relative z-[1] min-h-[36px] flex-1 rounded-[10px] text-[12px] transition-colors duration-200 ${
               on ? 'font-semibold text-ink' : 'font-medium text-ink-2'
             }`}
           >

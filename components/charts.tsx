@@ -559,7 +559,7 @@ export function WaterDays({
               />
             </span>
             {(big || i % 5 === 4 || i === n - 1) && (
-              <span className="text-[10.5px] font-medium text-ink-2 tnum">{labels[i]}</span>
+              <span className="text-[10px] font-medium text-ink-2 tnum">{labels[i]}</span>
             )}
           </li>
         );

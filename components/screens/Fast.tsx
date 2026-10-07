@@ -78,7 +78,7 @@ function Current({ d }: { d: Data }) {
           <FastDial start={f.startTime} end={endT} now={now} fasting>
             <div>
               <p className="flex items-baseline justify-center tnum" aria-label={`${longDur(el)} өнгөрсөн`}>
-                <span className="text-[46px] leading-none font-light tracking-[-0.045em]">{clockDur(el)}</span>
+                <span className="text-[40px] leading-none font-light tracking-[-0.045em]">{clockDur(el)}</span>
                 <span className="ml-0.5 text-title font-light text-ink-2" aria-hidden="true">
                   {secs(el)}
                 </span>
@@ -137,7 +137,7 @@ function Current({ d }: { d: Data }) {
             <FastDial start={last.startTime} end={last.endTime} now={now} fasting={false}>
               <div>
                 <p className="text-footnote font-semibold text-ink-2">Хооллох цонх</p>
-                <p className="mt-1 text-[44px] leading-none font-light tracking-[-0.045em] tnum">{clockDur(now - last.endTime)}</p>
+                <p className="mt-1 text-[38px] leading-none font-light tracking-[-0.045em] tnum">{clockDur(now - last.endTime)}</p>
                 <p className="mt-1.5 text-footnote text-ink-2">сүүлийн мацгаас хойш</p>
               </div>
             </FastDial>
@@ -216,7 +216,7 @@ function Fact({ k, v, sub }: { k: string; v: string; sub?: string }) {
   return (
     <div className="px-1 [&:not(:last-child)]:shadow-[1px_0_0_var(--sep)]">
       <dt className="text-caption font-medium text-ink-2">{k}</dt>
-      <dd className="mt-0.5 text-[20px] font-medium tracking-[-0.02em] tnum">{v}</dd>
+      <dd className="mt-0.5 text-[18px] font-medium tracking-[-0.02em] tnum">{v}</dd>
       {sub && <dd className="text-caption text-ink-2">{sub}</dd>}
     </div>
   );

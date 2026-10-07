@@ -232,7 +232,7 @@ function HungerCard({ d, now }: { d: Data; now: number }) {
         <div className="mt-3 flex items-end justify-between gap-4">
           {avg != null ? (
             <p className="tnum">
-              <span className="text-[44px] leading-none font-light tracking-[-0.04em] text-amber-ink">{avg.toFixed(1)}</span>
+              <span className="text-[38px] leading-none font-light tracking-[-0.04em] text-amber-ink">{avg.toFixed(1)}</span>
               <span className="ml-1 text-body font-medium text-ink-2">/ 10</span>
               <span className="mt-1 block text-footnote text-ink-2">
                 өнөөдрийн дундаж · {today.length} бүртгэл
@@ -263,7 +263,7 @@ function HungerCard({ d, now }: { d: Data; now: number }) {
             />
           ))}
         </div>
-        <div className="mt-1 flex justify-between text-[10.5px] font-medium text-ink-3 tnum" aria-hidden="true">
+        <div className="mt-1 flex justify-between text-[10px] font-medium text-ink-3 tnum" aria-hidden="true">
           <span>00</span>
           <span>06</span>
           <span>12</span>
@@ -271,7 +271,7 @@ function HungerCard({ d, now }: { d: Data; now: number }) {
           <span>24</span>
         </div>
         <button
-          className="btn-tinted mt-4 min-h-[52px] w-full bg-amber-soft text-[16px] text-amber-ink"
+          className="btn-tinted mt-4 min-h-[52px] w-full bg-amber-soft text-[15px] text-amber-ink"
           onClick={() => openSheet('hunger')}
         >
           <IconPlus size={20} strokeWidth={2} />
@@ -495,7 +495,7 @@ function TodayWidgets({ d, now }: { d: Data; now: number }) {
               <span className="mt-3 block min-h-[34px] tnum">
                 {w.value ? (
                   <>
-                    <span className="text-[28px] leading-none font-light tracking-[-0.03em]" style={{ color: TONE[w.tone].ink }}>
+                    <span className="text-[24px] leading-none font-light tracking-[-0.03em]" style={{ color: TONE[w.tone].ink }}>
                       {w.value}
                     </span>
                     {w.unit && <span className="ml-1 text-caption font-medium text-ink-2">{w.unit}</span>}
@@ -562,7 +562,7 @@ function PatternCard({ d, now }: { d: Data; now: number }) {
       <section className="grouped p-5" aria-label="Өлсөлтийн хэв маяг">
         {prof.peak ? (
           <>
-            <p className="text-[34px] leading-tight font-light tracking-[-0.035em] text-amber-ink tnum">{windowLabel(prof.peak)}</p>
+            <p className="text-[30px] leading-tight font-light tracking-[-0.035em] text-amber-ink tnum">{windowLabel(prof.peak)}</p>
             <p className="mt-1 text-body text-ink-2">Таны өлсөлт ихэвчлэн энэ үед хамгийн өндөр байна.</p>
             <p className="mt-3 inline-flex items-baseline gap-1.5 rounded-full bg-amber-soft px-3 py-1 tnum">
               <span className="text-body font-bold text-amber-ink">{prof.average!.toFixed(1)}</span>

@@ -110,7 +110,7 @@ export default function Sheet({
           <span className="h-[5px] w-9 rounded-full bg-fill" />
         </div>
         <div className="flex items-start justify-between gap-3 pr-3 pl-5">
-          <h2 id={titleId} className="pt-1 pb-4 text-[20px] leading-tight font-semibold tracking-[-0.02em]">
+          <h2 id={titleId} className="pt-1 pb-4 text-[18px] leading-tight font-semibold tracking-[-0.02em]">
             {title}
           </h2>
           <button

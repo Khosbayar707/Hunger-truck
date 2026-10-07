@@ -53,7 +53,7 @@ function TabBar() {
               <Link
                 href={href}
                 aria-current={active ? 'page' : undefined}
-                className={`relative flex min-h-[54px] flex-col items-center justify-center gap-[3px] rounded-[20px] text-[10.5px] tracking-[-0.01em] transition-[color,background-color,transform] duration-200 active:scale-95 ${
+                className={`relative flex min-h-[54px] flex-col items-center justify-center gap-[3px] rounded-[20px] text-[10px] tracking-[-0.01em] transition-[color,background-color,transform] duration-200 active:scale-95 ${
                   active ? 'bg-green-soft font-semibold text-green-ink' : 'font-medium text-ink-2'
                 }`}
               >

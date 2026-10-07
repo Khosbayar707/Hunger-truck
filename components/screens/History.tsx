@@ -227,7 +227,7 @@ function HungerByTime({ prof, range }: { prof: ReturnType<typeof hungerProfile>;
   return (
     <section className="grouped mt-5 p-5" aria-label="Цаг тус бүрийн өлсөлт">
       <CardHead tone="amber" icon={<IconHunger size={17} />} title="Таны өлсөлтийн оргил үе" />
-      <p className="mt-4 text-[38px] leading-tight font-light tracking-[-0.04em] text-amber-ink tnum">{windowLabel(prof.peak!)}</p>
+      <p className="mt-4 text-[32px] leading-tight font-light tracking-[-0.04em] text-amber-ink tnum">{windowLabel(prof.peak!)}</p>
       <p className="mt-1 text-body text-ink-2">Таны өлсөлт ихэвчлэн энэ үед хамгийн өндөр байна.</p>
       <p className="mt-2 text-footnote text-ink-2 tnum">
         Оргил үед <span className="font-bold text-amber-ink">{prof.peak!.value.toFixed(1)}</span> · дундаж{' '}
