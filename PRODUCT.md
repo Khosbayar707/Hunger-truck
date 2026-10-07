@@ -55,7 +55,7 @@ No real user data yet. Never show fake statistics: insights and charts appear on
 
 1. Right now first: fasting status and timer dominate.
 2. Logging must be nearly free: hunger in under five seconds, water in one tap.
-3. Observations, not advice: insights describe the owner's own data only.
+3. Observations first, then gentle advice: insights describe the owner's own data only; the Зөвлөгөө section offers fixed, general, safety-minded tips picked to fit the current state (fast phase, hunger peak, sleep, water), never invented numbers.
 4. Quiet over clever: nothing pulses, celebrates, or nags.
 5. Private by construction: local data, visible export and delete.
 

@@ -13,7 +13,8 @@ export type SheetName =
   | 'fast-start'
   | 'fast-edit'
   | 'fast-detail'
-  | 'hunger-detail';
+  | 'hunger-detail'
+  | 'advice';
 
 export interface SheetState {
   name: SheetName;

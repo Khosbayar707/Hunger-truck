@@ -6,6 +6,7 @@ import { FastProgress, HungerArea } from '../charts';
 import { IconDownload, IconDrop, IconHeart, IconHunger, IconMoon, IconPlus, IconScale, IconSteps, IconTimer } from '../icons';
 import { Badge, GroupTitle, Screen, Segmented, Skeleton, TONE, Trend, useNow, useUI, type Tone } from '../ui';
 import { isQuiet } from '../AppShell';
+import { AdviceCard } from '../Advice';
 import { goalLabel } from './Fast';
 import { VITALS } from '../Sheets';
 import { replaceAll, useData, useHydrated } from '@/lib/store';
@@ -46,6 +47,7 @@ function TodayBody({ now }: { now: number }) {
       <HungerCard d={d} now={now} />
       <TodayWidgets d={d} now={now} />
       <PatternCard d={d} now={now} />
+      <AdviceCard d={d} now={now} />
       <BackupNudge d={d} now={now} />
     </>
   );

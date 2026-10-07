@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Sheet from './Sheet';
 import HungerScale from './HungerScale';
+import { AdviceLibrary } from './Advice';
 import { IconChevron, IconMinus, IconPlus, IconTrash } from './icons';
 import { Switch, useUI, type SheetName } from './ui';
 import { replaceAll, useData } from '@/lib/store';
@@ -60,6 +61,7 @@ export default function SheetHost() {
     'fast-edit': <FastEditSheet {...props} />,
     'fast-detail': <FastDetailSheet {...props} />,
     'hunger-detail': <HungerDetailSheet {...props} />,
+    advice: <AdviceSheet {...props} />,
   };
   return <>{map[s.name]}</>;
 }
@@ -893,6 +895,14 @@ function HungerDetailSheet({ open, onClose, payload }: SP) {
         {h.mood && <DetailRow k="Сэтгэл санаа" v={h.mood} />}
         {h.note && <DetailRow k="Тайлбар" v={h.note} />}
       </dl>
+    </Sheet>
+  );
+}
+
+function AdviceSheet({ open, onClose }: SP) {
+  return (
+    <Sheet open={open} onClose={onClose} title="Зөвлөгөө">
+      <AdviceLibrary />
     </Sheet>
   );
 }
