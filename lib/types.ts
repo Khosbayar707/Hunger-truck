@@ -90,6 +90,8 @@ export interface Data {
   hunger: HungerEntry[];
   fasts: FastingSession[];
   activeFast: ActiveFast | null;
+  /** a fast scheduled to begin later; becomes activeFast when its start time passes */
+  plannedFast: ActiveFast | null;
   sleep: SleepEntry[];
   water: WaterEntry[];
   vitals: VitalEntry[];

@@ -7,7 +7,7 @@ import SheetHost from './Sheets';
 import { UIProvider, useUI } from './ui';
 import { IconFast, IconHistory, IconSettings, IconToday } from './icons';
 import { useData } from '@/lib/store';
-import { promptKey } from '@/lib/actions';
+import { activatePlanIfDue, promptKey } from '@/lib/actions';
 import { recordCount, requestPersist } from '@/lib/backup';
 
 const TABS = [
@@ -24,6 +24,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <ServiceWorker />
       <HourlyNotifier />
       <PersistStorage />
+      <PlanActivator />
       {children}
       <TabBar />
       <SheetHost />
@@ -124,6 +125,24 @@ function ServiceWorker() {
     if (process.env.NODE_ENV !== 'production' || !('serviceWorker' in navigator)) return;
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }, []);
+  return null;
+}
+
+/** A planned fast starts on its own once its time comes, even if the app was closed then. */
+function PlanActivator() {
+  const plan = useData().plannedFast;
+  useEffect(() => {
+    if (!plan) return;
+    const check = () => Date.now() >= plan.startTime && activatePlanIfDue();
+    check();
+    const id = setInterval(check, 30e3);
+    const onVis = () => document.visibilityState === 'visible' && check();
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }, [plan]);
   return null;
 }
 

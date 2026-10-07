@@ -6,8 +6,8 @@ import { IconCalendar, IconCheck, IconChevron, IconEdit, IconTimer } from '../ic
 import { Badge, Group, GroupTitle, Row, Screen, Skeleton, useNow, useUI } from '../ui';
 import { GOALS } from '../Sheets';
 import { replaceAll, useData, useHydrated } from '@/lib/store';
-import { endFast } from '@/lib/actions';
-import { addFastToCalendar, calendarState } from '@/lib/calendar';
+import { cancelPlannedFast, endFast, startPlannedNow } from '@/lib/actions';
+import { addFastToCalendar, addPlanToCalendar, calendarState } from '@/lib/calendar';
 import { DAY, HOUR, clockDur, hm, longDur, relDay, secs, shortDur } from '@/lib/time';
 import type { Data } from '@/lib/types';
 
@@ -127,6 +127,57 @@ function Current({ d }: { d: Data }) {
     );
   }
 
+  const plan = d.plannedFast;
+  if (plan) {
+    const planEnd = plan.startTime + plan.targetHours * HOUR;
+    return (
+      <>
+        <section aria-label="Төлөвлөсөн мацаг" className="hero px-5 pt-5 pb-5">
+          <FastDial start={plan.startTime} end={planEnd} now={now} fasting={false} planned>
+            <div>
+              <p className="text-footnote font-semibold text-ink-2">Эхлэх хүртэл</p>
+              <p className="mt-1 text-[40px] leading-none font-light tracking-[-0.045em] tnum">{clockDur(plan.startTime - now)}</p>
+              <p className="mt-1.5 text-footnote font-semibold text-green-ink tnum">{plan.targetHours} цагийн зорилго</p>
+            </div>
+          </FastDial>
+          <dl className="mt-5 grid grid-cols-3 rounded-[18px] bg-fill-2 py-3 text-center">
+            <Fact k="Эхлэх" v={hm(plan.startTime)} sub={relDay(plan.startTime)} />
+            <Fact k="Дуусах" v={hm(planEnd)} sub={relDay(planEnd)} />
+            <Fact k="Зорилго" v={goalLabel(plan.targetHours)} sub={`${plan.targetHours} цаг`} />
+          </dl>
+          <button
+            className="btn-primary mt-4 w-full"
+            onClick={() => {
+              if (startPlannedNow()) toast('Мацаг эхэллээ');
+              else toast('Мэдээллийг хадгалж чадсангүй.', { tone: 'error' });
+            }}
+          >
+            Одоо эхлүүлэх
+          </button>
+        </section>
+        <Group className="mt-4">
+          <Row onClick={() => openSheet('fast-start', 'plan')}>
+            <Badge tone="green">
+              <IconEdit size={16} />
+            </Badge>
+            <span className="flex-1 text-body font-medium">Цаг, зорилгыг засах</span>
+            <IconChevron size={16} className="text-ink-3" />
+          </Row>
+          <CalendarRow fast={plan} planned />
+          <Row
+            onClick={() => {
+              cancelPlannedFast();
+              toast('Төлөвлөсөн мацаг цуцлагдлаа');
+            }}
+            className="justify-center"
+          >
+            <span className="text-body font-semibold text-danger">Төлөвлөгөөг цуцлах</span>
+          </Row>
+        </Group>
+      </>
+    );
+  }
+
   const last = d.fasts[d.fasts.length - 1];
   const goal = d.profile.fastingGoalH;
   return (
@@ -178,13 +229,14 @@ function Current({ d }: { d: Data }) {
 }
 
 /** Hands the fast's end time to the phone calendar, which alerts reliably even when the app is closed. */
-function CalendarRow({ fast }: { fast: NonNullable<Data['activeFast']> }) {
+function CalendarRow({ fast, planned }: { fast: NonNullable<Data['activeFast']>; planned?: boolean }) {
   const { toast } = useUI();
   const st = calendarState(fast);
   return (
     <Row
       onClick={() => {
-        addFastToCalendar(fast);
+        if (planned) addPlanToCalendar(fast);
+        else addFastToCalendar(fast);
         toast(st === 'stale' ? 'Шинэ цагийг календарьт илгээлээ' : 'Календарийн сануулга үүслээ');
       }}
     >
@@ -193,7 +245,7 @@ function CalendarRow({ fast }: { fast: NonNullable<Data['activeFast']> }) {
       </Badge>
       <span className="min-w-0 flex-1">
         <span className="block text-body font-medium">
-          {st === 'none' ? 'Дуусах үед сануулах' : st === 'stale' ? 'Календарийн сануулгыг шинэчлэх' : 'Календарьт нэмсэн'}
+          {st === 'none' ? (planned ? 'Эхлэх, дуусах үед сануулах' : 'Дуусах үед сануулах') : st === 'stale' ? 'Календарийн сануулгыг шинэчлэх' : 'Календарьт нэмсэн'}
         </span>
         <span className={`block text-caption ${st === 'stale' ? 'text-amber-ink' : 'text-ink-2'}`}>
           {st === 'none'

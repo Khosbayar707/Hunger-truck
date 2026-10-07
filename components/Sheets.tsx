@@ -8,6 +8,8 @@ import { Switch, useUI, type SheetName } from './ui';
 import { replaceAll, useData } from '@/lib/store';
 import {
   addSleep,
+  cancelPlannedFast,
+  planFast,
   addVital,
   addWater,
   addWeight,
@@ -18,7 +20,7 @@ import {
   startFast,
 } from '@/lib/actions';
 import { HUNGER_WORDS } from '@/lib/analysis';
-import { addFastToCalendar } from '@/lib/calendar';
+import { addFastToCalendar, addPlanToCalendar } from '@/lib/calendar';
 import { HOUR, MIN, dayKey, hm, longDur, relDay, shortDur, toLocalInput } from '@/lib/time';
 import type { Data, VitalType } from '@/lib/types';
 
@@ -590,24 +592,69 @@ function Radio({ on }: { on: boolean }) {
   );
 }
 
-/* ---------- start fast ---------- */
-function FastStartSheet({ open, onClose }: SP) {
+/* ---------- start fast: now, backdated, or planned for later ---------- */
+type When = 'now' | 'earlier' | 'later';
+
+/** Next sensible start for a plan: the time of day the last fast began, else 20:00, at least 15 min ahead. */
+function defaultPlanStart(lastStart?: number) {
+  const now = Date.now();
+  const t = new Date(now);
+  const ref = lastStart ? new Date(lastStart) : null;
+  t.setHours(ref ? ref.getHours() : 20, ref ? Math.round(ref.getMinutes() / 15) * 15 : 0, 0, 0);
+  while (t.getTime() < now + 15 * MIN) t.setDate(t.getDate() + 1);
+  return t.getTime();
+}
+
+function FastStartSheet({ open, onClose, payload }: SP) {
   const d = useData();
   const { openSheet, toast } = useUI();
-  const [when, setWhen] = useState<'now' | 'earlier'>('now');
+  const editingPlan = payload === 'plan' && !!d.plannedFast;
+  const [when, setWhen] = useState<When>('now');
   const [at, setAt] = useState('');
   useEffect(() => {
-    if (open) {
+    if (!open) return;
+    if (editingPlan) {
+      setWhen('later');
+      setAt(toLocalInput(d.plannedFast!.startTime));
+    } else {
       setWhen('now');
       setAt(toLocalInput(Date.now() - HOUR));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
-  const goal = d.profile.fastingGoalH;
+
+  const choose = (w: When) => {
+    setWhen(w);
+    if (w === 'earlier') setAt(toLocalInput(Date.now() - HOUR));
+    if (w === 'later') setAt(toLocalInput(d.plannedFast?.startTime ?? defaultPlanStart(d.fasts[d.fasts.length - 1]?.startTime)));
+  };
+
+  const goal = d.plannedFast?.targetHours ?? d.profile.fastingGoalH;
   const startTs = when === 'now' ? Date.now() : new Date(at).getTime();
-  const valid = when === 'now' || (!isNaN(startTs) && startTs <= Date.now() && Date.now() - startTs < 72 * HOUR);
+  const nowTs = Date.now();
+  const valid =
+    when === 'now' ||
+    (!isNaN(startTs) &&
+      (when === 'earlier'
+        ? startTs <= nowTs && nowTs - startTs < 72 * HOUR
+        : startTs > nowTs + MIN && startTs - nowTs <= 7 * 24 * HOUR));
+
   const go = () => {
     // one timestamp for both the stored fast and the calendar event, so they match exactly
     const s0 = when === 'now' ? Date.now() : startTs;
+    if (when === 'later') {
+      const ok = planFast(s0, goal);
+      if (ok)
+        toast(`Мацаг ${relDay(s0).toLowerCase()} ${hm(s0)}-д эхэлнэ`, {
+          action: {
+            label: 'Календарьт нэмэх',
+            run: () => addPlanToCalendar({ startTime: s0, targetHours: goal, calendar: d.plannedFast?.calendar }),
+          },
+        });
+      else toast('Мэдээллийг хадгалж чадсангүй.', { tone: 'error' });
+      onClose();
+      return;
+    }
     const ok = startFast(goal, s0);
     if (ok)
       toast(`Мацаг эхэллээ · ${hm(s0)}`, {
@@ -616,14 +663,21 @@ function FastStartSheet({ open, onClose }: SP) {
     else toast('Мэдээллийг хадгалж чадсангүй.', { tone: 'error' });
     onClose();
   };
+
+  const OPTIONS: { v: When; label: string }[] = [
+    { v: 'now', label: 'Яг одоо' },
+    { v: 'earlier', label: 'Өмнө нь' },
+    { v: 'later', label: 'Дараа нь' },
+  ];
+
   return (
     <Sheet
       open={open}
       onClose={onClose}
-      title="Мацаг эхлүүлэх"
+      title={editingPlan ? 'Төлөвлөсөн мацаг' : 'Мацаг эхлүүлэх'}
       footer={
         <button className="btn-primary w-full" disabled={!valid} onClick={go}>
-          Эхлүүлэх
+          {when === 'later' ? (editingPlan ? 'Хадгалах' : 'Төлөвлөх') : 'Эхлүүлэх'}
         </button>
       }
     >
@@ -639,39 +693,67 @@ function FastStartSheet({ open, onClose }: SP) {
         </span>
         <IconChevron size={18} className="text-ink-2" />
       </button>
-      <div className="py-5" role="radiogroup" aria-label="Эхэлсэн цаг">
-        <p className="mb-3 text-sm text-ink-2">Сүүлд хэзээ хооллосон бэ?</p>
-        <div className="grid grid-cols-2 gap-2">
-          {(['now', 'earlier'] as const).map((w) => (
+      <div className="py-5" role="radiogroup" aria-label="Эхлэх цаг">
+        <p className="mb-3 text-sm text-ink-2">Хэзээ эхлэх вэ?</p>
+        <div className="grid grid-cols-3 gap-2">
+          {OPTIONS.map(({ v, label }) => (
             <button
-              key={w}
+              key={v}
               role="radio"
-              aria-checked={when === w}
-              onClick={() => setWhen(w)}
+              aria-checked={when === v}
+              onClick={() => choose(v)}
               className={`min-h-[48px] rounded-[12px] text-[14px] font-medium transition-colors duration-200 ${
-                when === w ? 'bg-green-soft text-green-ink shadow-[inset_0_0_0_1.5px_var(--green)]' : 'bg-fill-2 text-ink'
+                when === v ? 'bg-green-soft text-green-ink shadow-[inset_0_0_0_1.5px_var(--green)]' : 'bg-fill-2 text-ink'
               }`}
             >
-              {w === 'now' ? 'Яг одоо' : 'Өмнө нь'}
+              {label}
             </button>
           ))}
         </div>
-        {when === 'earlier' && (
+        {when !== 'now' && (
           <input
             type="datetime-local"
             className="field rise-in mt-3 tnum"
             value={at}
-            max={toLocalInput(Date.now())}
+            min={when === 'later' ? toLocalInput(Date.now() + MIN) : undefined}
+            max={when === 'earlier' ? toLocalInput(Date.now()) : undefined}
             onChange={(e) => setAt(e.target.value)}
-            aria-label="Мацаг эхэлсэн огноо, цаг"
+            aria-label={when === 'later' ? 'Мацаг эхлэх огноо, цаг' : 'Мацаг эхэлсэн огноо, цаг'}
           />
         )}
-        {valid && (
+        {when === 'later' && (
+          <p className="mt-2 text-xs text-ink-2">Цаг нь болоход мацаг автоматаар эхэлнэ.</p>
+        )}
+        {valid ? (
           <p className="mt-4 text-sm text-ink-2 tnum">
-            Дуусах хугацаа: {relDay(startTs + goal * HOUR)} {hm(startTs + goal * HOUR)}
+            {when === 'later' && (
+              <>
+                Эхлэх: {relDay(startTs)} {hm(startTs)} ·{' '}
+              </>
+            )}
+            Дуусах: {relDay(startTs + goal * HOUR)} {hm(startTs + goal * HOUR)}
           </p>
+        ) : (
+          at && (
+            <p className="mt-4 text-sm text-danger">
+              {when === 'later' ? 'Ирээдүйн цаг сонгоно уу (7 хоногийн дотор).' : 'Өнгөрсөн цаг сонгоно уу (72 цагийн дотор).'}
+            </p>
+          )
         )}
       </div>
+      {editingPlan && (
+        <button
+          className="btn-text mb-3 -ml-1 text-danger"
+          style={{ color: 'var(--danger)' }}
+          onClick={() => {
+            cancelPlannedFast();
+            toast('Төлөвлөсөн мацаг цуцлагдлаа');
+            onClose();
+          }}
+        >
+          Төлөвлөгөөг цуцлах
+        </button>
+      )}
     </Sheet>
   );
 }

@@ -28,6 +28,7 @@ export const emptyData = (): Data => ({
   hunger: [],
   fasts: [],
   activeFast: null,
+  plannedFast: null,
   sleep: [],
   water: [],
   vitals: [],
@@ -96,6 +97,7 @@ export function normalize(raw: unknown): Data {
     water: Array.isArray(r.water) ? r.water : [],
     vitals: Array.isArray(r.vitals) ? r.vitals : [],
     activeFast: r.activeFast ?? null,
+    plannedFast: r.plannedFast ?? null,
   };
 }
 

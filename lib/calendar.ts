@@ -35,8 +35,9 @@ function fold(line: string) {
   return out.join('\r\n ');
 }
 
-export function fastIcs(opts: { uid: string; seq: number; start: number; end: number; hours: number }) {
-  const { uid, seq, start, end, hours } = opts;
+export function fastIcs(opts: { uid: string; seq: number; start: number; end: number; hours: number; planned?: boolean }) {
+  const { uid, seq, start, end, hours, planned } = opts;
+  if (planned) return plannedIcs(opts);
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -60,6 +61,46 @@ export function fastIcs(opts: { uid: string; seq: number; start: number; end: nu
     'END:VCALENDAR',
   ];
   return lines.map(fold).join('\r\n') + '\r\n';
+}
+
+function plannedIcs({ uid, seq, start, end, hours }: { uid: string; seq: number; start: number; end: number; hours: number }) {
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Hunger Truck//MN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `SEQUENCE:${seq}`,
+    `DTSTAMP:${utc(Date.now())}`,
+    `DTSTART:${utc(start)}`,
+    `DTEND:${utc(end)}`,
+    `SUMMARY:${esc(`Мацаг · ${hours} цаг`)}`,
+    `DESCRIPTION:${esc('Hunger Truck — төлөвлөсөн мацаг. Эхлэх болон дуусах үед сануулна.')}`,
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'TRIGGER:PT0M',
+    `DESCRIPTION:${esc('Мацаг эхлэх цаг боллоо')}`,
+    'END:VALARM',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'TRIGGER;RELATED=END:PT0M',
+    `DESCRIPTION:${esc('Мацгийн зорилгод хүрлээ')}`,
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ];
+  return lines.map(fold).join('\r\n') + '\r\n';
+}
+
+/** Adds the planned fast (start and end alarms) to the calendar and remembers it on the plan. */
+export function addPlanToCalendar(plan: { startTime: number; targetHours: number; calendar?: CalendarMark }) {
+  const end = plan.startTime + plan.targetHours * HOUR;
+  const uid = plan.calendar?.uid ?? `fast-${plan.startTime}-${Math.random().toString(36).slice(2, 8)}@hunger-truck`;
+  const seq = plan.calendar ? plan.calendar.seq + 1 : 0;
+  openIcs(fastIcs({ uid, seq, start: plan.startTime, end, hours: plan.targetHours, planned: true }), 'hunger-truck-macag.ics');
+  update((d) => (d.plannedFast ? { ...d, plannedFast: { ...d.plannedFast, calendar: { uid, seq, end } } } : d));
 }
 
 /** Opens the event in the OS calendar flow (iOS shows "Add to Calendar"; Android opens it with the calendar app). */

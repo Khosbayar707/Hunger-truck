@@ -5,7 +5,38 @@ import type { Data, HungerEntry, MetricKey, UserProfile, VitalType } from './typ
 import { HOUR } from './time';
 
 export function startFast(targetHours: number, startTime = Date.now()) {
-  return update((d) => ({ ...d, activeFast: { startTime, targetHours } }));
+  return update((d) => ({ ...d, activeFast: { startTime, targetHours }, plannedFast: null }));
+}
+
+/* ---------- planned fasts ---------- */
+export function planFast(startTime: number, targetHours: number) {
+  return update((d) => ({
+    ...d,
+    // keep the calendar mark when only re-planning, so the reminder can be updated in place
+    plannedFast: { startTime, targetHours, calendar: d.plannedFast?.calendar },
+  }));
+}
+
+export function cancelPlannedFast() {
+  return update((d) => ({ ...d, plannedFast: null }));
+}
+
+/** Begin the planned fast right now instead of at its scheduled time. */
+export function startPlannedNow() {
+  return update((d) =>
+    d.plannedFast
+      ? { ...d, activeFast: { ...d.plannedFast, startTime: Date.now() }, plannedFast: null }
+      : d,
+  );
+}
+
+/** When the scheduled start has passed, the plan becomes the active fast, counted from its planned start. */
+export function activatePlanIfDue(now = Date.now()) {
+  return update((d) =>
+    d.plannedFast && !d.activeFast && now >= d.plannedFast.startTime
+      ? { ...d, activeFast: d.plannedFast, plannedFast: null }
+      : d,
+  );
 }
 
 export function setFastStart(startTime: number) {
@@ -17,6 +48,7 @@ export function setFastTarget(targetHours: number) {
     ...d,
     profile: { ...d.profile, fastingGoalH: targetHours },
     activeFast: d.activeFast ? { ...d.activeFast, targetHours } : null,
+    plannedFast: d.plannedFast ? { ...d.plannedFast, targetHours } : null,
   }));
 }
 

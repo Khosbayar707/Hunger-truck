@@ -107,12 +107,15 @@ export function FastDial({
   end,
   now,
   fasting,
+  planned,
   children,
 }: {
   start: number;
   end: number;
   now: number;
   fasting: boolean;
+  /** a scheduled fast: draw its window, nothing elapsed */
+  planned?: boolean;
   children: React.ReactNode;
 }) {
   const S = 288;
@@ -135,7 +138,7 @@ export function FastDial({
   };
   const a0 = ang(start);
   const total = ((end - start) / HOUR / 24) * 360;
-  const done = fasting ? Math.min(total, ((now - start) / HOUR / 24) * 360) : total;
+  const done = planned ? 0 : fasting ? Math.min(total, ((now - start) / HOUR / 24) * 360) : total;
   const [nx, ny] = pt(ang(now));
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[300px]">

@@ -9,7 +9,7 @@ import { isQuiet } from '../AppShell';
 import { goalLabel } from './Fast';
 import { VITALS } from '../Sheets';
 import { replaceAll, useData, useHydrated } from '@/lib/store';
-import { addWater, endFast, promptKey, removeEntry } from '@/lib/actions';
+import { addWater, endFast, promptKey, removeEntry, startPlannedNow } from '@/lib/actions';
 import { backupDue, exportData, snoozeBackup } from '@/lib/backup';
 import { hungerProfile, inRange, windowLabel, MIN_ENTRIES } from '@/lib/analysis';
 import { HOUR, clockDur, dayKey, hm, longDate, longDur, relDay, shortDur } from '@/lib/time';
@@ -117,6 +117,43 @@ function FastHero({ d, now }: { d: Data; now: number }) {
         <button className="btn-primary relative mt-5 w-full" onClick={end}>
           Мацаг дуусгах
         </button>
+      </section>
+    );
+  }
+
+  const plan = d.plannedFast;
+  if (plan) {
+    const planEnd = plan.startTime + plan.targetHours * HOUR;
+    return (
+      <section aria-label="Төлөвлөсөн мацаг" className="hero relative overflow-hidden px-5 pt-4 pb-5">
+        <div className="flex items-center justify-between">
+          {pill('Төлөвлөсөн мацаг', true)}
+          {goalChip}
+        </div>
+        <p className="mt-3 text-display font-light tracking-[-0.05em] tnum" aria-label={`Эхлэх хүртэл ${longDur(plan.startTime - now)}`}>
+          {clockDur(plan.startTime - now)}
+        </p>
+        <p className="mt-1 text-footnote font-medium text-ink-2">эхлэх хүртэл</p>
+        <p className="mt-4 text-body text-ink-2 tnum">
+          <span className="font-semibold text-ink">
+            {relDay(plan.startTime)} {hm(plan.startTime)}
+          </span>{' '}
+          → {relDay(planEnd).toLowerCase()} {hm(planEnd)}
+        </p>
+        <div className="mt-5 flex gap-2">
+          <button className="btn-quiet flex-1" onClick={() => openSheet('fast-start', 'plan')}>
+            Засах
+          </button>
+          <button
+            className="btn-primary flex-[2]"
+            onClick={() => {
+              if (startPlannedNow()) toast('Мацаг эхэллээ');
+              else toast('Мэдээллийг хадгалж чадсангүй.', { tone: 'error' });
+            }}
+          >
+            Одоо эхлүүлэх
+          </button>
+        </div>
       </section>
     );
   }
