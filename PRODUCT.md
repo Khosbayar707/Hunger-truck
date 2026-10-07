@@ -43,7 +43,7 @@ The hunger-by-time-of-day record is the core: a 1–10 hunger log taken in under
 ## Brand Commitments
 
 - Name: Hunger Truck.
-- Voice: neutral, quiet, private ("Таны мэдээлэл", "Таны хэв маяг"). No praise for weight loss, no motivational slogans, no gamification, badges, streak pressure, social, or sharing.
+- Voice: neutral, quiet, private ("Таны мэдээлэл", "Таны хэв маяг"). No praise for weight loss, no gamification, badges, streak pressure, social, or sharing. The owner asked (2026-10-07) for an Урам зориг card: steady, plain encouragement about getting through hunger and returning to the habit, never about weight or looks, never pushing past body signals, with any fact drawn from their own records.
 - Health safety: tracking tool, not diagnosis. Never encourage extreme fasting or restriction. One secondary, non-alarming safety note about dizziness/fainting.
 - User-pinned look (v3, 2026-10-07, replaces the earlier tide-table look): premium iOS-inspired personal health app, not an Apple Health clone. Montserrat typeface (user choice over system font). Soft off-white canvas (~#F5F5F7), white grouped surfaces with soft depth, three depth levels (background, grouped surfaces, hero). Meaningful per-metric color identity: fasting/primary green-mint, hunger warm amber, water blue, sleep indigo, weight green; color for progress, status, chart series, icons, key numbers — never full backgrounds, never rainbow. Red only for real warnings. Large light-to-medium numerals as anchors. iOS-style grouped settings, green switches, segmented controls, floating translucent tab bar, bottom sheets for entry. Premium dark mode (deep charcoal, not pure black). No glass everywhere, no heavy gradients or shadows.
 

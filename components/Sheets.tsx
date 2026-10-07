@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Sheet from './Sheet';
 import HungerScale from './HungerScale';
-import { AdviceLibrary } from './Advice';
+import { AdviceLibrary, CopingNow } from './Advice';
 import { IconChevron, IconMinus, IconPlus, IconTrash } from './icons';
 import { Switch, useUI, type SheetName } from './ui';
 import { replaceAll, useData } from '@/lib/store';
@@ -173,6 +173,7 @@ function HungerSheet({ open, onClose }: SP) {
         <span>Огт өлсөөгүй</span>
         <span>Тэсэхэд хэцүү</span>
       </div>
+      {value != null && value >= 5 && fasting && <CopingNow intensity={value} now={Date.now()} />}
 
       <button
         className="btn-text mt-4 -ml-1"

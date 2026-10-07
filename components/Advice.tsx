@@ -1,12 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { IconDrop, IconHeart, IconHunger, IconMoon, IconTimer } from './icons';
 import { Badge, GroupTitle, useUI, type Tone } from './ui';
-import { ADVICE, TOPIC_LABEL, adviceFor, type Advice, type AdviceTopic } from '@/lib/advice';
+import { ADVICE, COPING, TOPIC_LABEL, adviceFor, copingTip, type Advice, type AdviceTopic } from '@/lib/advice';
+import { motivationFor } from '@/lib/motivation';
 import type { Data } from '@/lib/types';
 
 /** Each topic borrows its metric's hue; safety stays neutral (red is for real errors only). */
 const TOPIC: Record<AdviceTopic, { tone: Tone | null; icon: React.ReactNode }> = {
+  cope: { tone: 'amber', icon: <IconHunger size={17} /> },
   fasting: { tone: 'green', icon: <IconTimer size={17} /> },
   food: { tone: 'green', icon: <IconTimer size={17} /> },
   hunger: { tone: 'amber', icon: <IconHunger size={17} /> },
@@ -62,6 +65,65 @@ export function AdviceCard({ d, now }: { d: Data; now: number }) {
         </ul>
       </section>
     </>
+  );
+}
+
+/** Today: one steady line for where the owner is in the fast, plus a fact from their own records. */
+export function MotivationCard({ d, now }: { d: Data; now: number }) {
+  const [offset, setOffset] = useState(0);
+  const m = motivationFor(d, now, offset);
+  return (
+    <>
+      <GroupTitle
+        title="Урам зориг"
+        aside={
+          m.count > 1 && (
+            <button
+              onClick={() => setOffset((o) => o + 1)}
+              className="tap -my-2 min-h-[44px] px-1 text-[15px] font-semibold text-green-ink"
+            >
+              Өөр үг
+            </button>
+          )
+        }
+      />
+      <section className="grouped p-5" aria-label="Урам зориг" aria-live="polite">
+        <p key={m.line} className="rise-in max-w-[30ch] text-[19px] leading-[1.35] font-medium tracking-[-0.015em]">
+          {m.line}
+        </p>
+        {m.fact && (
+          <p className="mt-3 flex gap-2 text-footnote font-medium text-ink-2 tnum">
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-green" aria-hidden="true" />
+            {m.fact}
+          </p>
+        )}
+      </section>
+    </>
+  );
+}
+
+/** Inside the hunger sheet: a way through this wave, with another on request. */
+export function CopingNow({ intensity, now }: { intensity: number; now: number }) {
+  const [offset, setOffset] = useState(0);
+  const a = intensity >= 9 ? ADVICE.find((x) => x.id === 'stop')! : copingTip(now, offset);
+  return (
+    <div className="rise-in mt-5 rounded-[18px] bg-fill-2 p-4" aria-live="polite">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-footnote font-semibold text-ink-2">{intensity >= 9 ? 'Биеэ сонсоорой' : 'Одоо туршаад үзээрэй'}</p>
+        {intensity < 9 && COPING.length > 1 && (
+          <button
+            type="button"
+            onClick={() => setOffset((o) => o + 1)}
+            className="tap -my-2 min-h-[44px] px-1 text-footnote font-semibold text-amber-ink"
+          >
+            Өөр арга
+          </button>
+        )}
+      </div>
+      <ul className="mt-2">
+        <AdviceItem key={a.id} a={a} />
+      </ul>
+    </div>
   );
 }
 
