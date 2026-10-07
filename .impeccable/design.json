@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T12:00:00Z",
+  "title": "Design System: Hunger Truck",
+  "extensions": {
+    "colorMeta": {
+      "canvas": { "role": "neutral", "displayName": "Soft Canvas", "canonical": "#f5f5f7", "tonalRamp": ["#1f1f1d", "#363634", "#52524f", "#72726f", "#969693", "#bdbdba", "#e2e2df", "#f5f5f7"] },
+      "surface": { "role": "neutral", "displayName": "White Surface", "canonical": "#ffffff" },
+      "elevated": { "role": "neutral", "displayName": "Elevated Surface", "canonical": "#ffffff" },
+      "fill": { "role": "neutral", "displayName": "Control Track", "canonical": "#e9e9ec" },
+      "fill-2": { "role": "neutral", "displayName": "Inset Well", "canonical": "#f1f1f3" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1c1c1e", "tonalRamp": ["#1c1c1e", "#333336", "#4c4c51", "#66666d", "#838389", "#a1a1a8", "#c8c8cd", "#ececef"] },
+      "ink-2": { "role": "neutral", "displayName": "Secondary Ink", "canonical": "#66666d" },
+      "ink-3": { "role": "neutral", "displayName": "Tertiary Ink", "canonical": "#a1a1a8" },
+      "separator": { "role": "neutral", "displayName": "Hairline Separator", "canonical": "rgb(60 60 67 / 0.12)" },
+      "fasting-green": { "role": "primary", "displayName": "Fasting Green", "canonical": "#2fb27a", "tonalRamp": ["#0b2a1c", "#124230", "#1c7f54", "#2fb27a", "#4fd99c", "#8fe6bf", "#c6f2dd", "#ebfaf3"] },
+      "fasting-green-ink": { "role": "primary", "displayName": "Deep Fasting Green", "canonical": "#1c7f54" },
+      "fasting-green-soft": { "role": "primary", "displayName": "Fasting Green Tint", "canonical": "rgb(47 178 122 / 0.12)" },
+      "hunger-amber": { "role": "secondary", "displayName": "Hunger Amber", "canonical": "#f4a12a", "tonalRamp": ["#2e1a03", "#5a3305", "#a65a0a", "#e08a17", "#f4a12a", "#ffbe5c", "#ffdca6", "#fff4e3"] },
+      "hunger-amber-ink": { "role": "secondary", "displayName": "Burnt Amber Ink", "canonical": "#a65a0a" },
+      "hunger-amber-soft": { "role": "secondary", "displayName": "Hunger Amber Tint", "canonical": "rgb(244 161 42 / 0.14)" },
+      "water-blue": { "role": "tertiary", "displayName": "Water Blue", "canonical": "#3b8bf6", "tonalRamp": ["#0a1d3a", "#123366", "#1f66d1", "#3b8bf6", "#5aa2ff", "#78b4ff", "#bcd8ff", "#eaf3ff"] },
+      "water-blue-ink": { "role": "tertiary", "displayName": "Deep Water Blue", "canonical": "#1f66d1" },
+      "sleep-indigo": { "role": "tertiary", "displayName": "Sleep Indigo", "canonical": "#6f68f0", "tonalRamp": ["#17153d", "#2a2570", "#4c44d6", "#6f68f0", "#8f89ff", "#a7a2ff", "#d2cfff", "#f0efff"] },
+      "sleep-indigo-ink": { "role": "tertiary", "displayName": "Deep Sleep Indigo", "canonical": "#4c44d6" },
+      "weight-teal": { "role": "tertiary", "displayName": "Weight Teal", "canonical": "#22a58b", "tonalRamp": ["#06261f", "#0c4237", "#137a66", "#22a58b", "#3cc9ab", "#5ad6bc", "#b3ede0", "#e8faf5"] },
+      "weight-teal-ink": { "role": "tertiary", "displayName": "Deep Weight Teal", "canonical": "#137a66" },
+      "danger": { "role": "error", "displayName": "Warning Red", "canonical": "#d6453a" },
+      "material": { "role": "neutral", "displayName": "Floating Material", "canonical": "rgb(255 255 255 / 0.72)" },
+      "dark-canvas": { "role": "neutral", "displayName": "Charcoal Canvas (dark)", "canonical": "#111113" },
+      "dark-surface": { "role": "neutral", "displayName": "Charcoal Surface (dark)", "canonical": "#1c1c1f" },
+      "dark-elevated": { "role": "neutral", "displayName": "Charcoal Elevated (dark)", "canonical": "#232327" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The 68px light fasting timer in the Today hero only." },
+      "figure": { "displayName": "Figure", "purpose": "Light stat numerals in History summaries; in-card numerals currently use one-off 28-46px sizes." },
+      "headline": { "displayName": "Large Title", "purpose": "Screen large titles (30px semibold), collapsing to a 15px compact bar title." },
+      "title": { "displayName": "Title", "purpose": "Card titles and the hunger word in the hunger sheet." },
+      "body": { "displayName": "Body", "purpose": "Row labels, explanatory sentences, tooltip values." },
+      "footnote": { "displayName": "Footnote", "purpose": "Units, sub-labels, pills, widget labels, toasts, segmented labels." },
+      "caption": { "displayName": "Caption", "purpose": "Widget feet, tooltip timestamps, slider scale numbers." }
+    },
+    "shadows": [
+      { "name": "shadow-2", "value": "0 1px 2px rgb(16 24 20 / 0.04), 0 6px 18px rgb(16 24 20 / 0.045)", "purpose": "L2 grouped surfaces, widgets, cards. Dark: 0 0 0 1px rgb(255 255 255 / 0.04)." },
+      { "name": "shadow-3", "value": "0 2px 6px rgb(16 24 20 / 0.04), 0 18px 40px rgb(16 24 20 / 0.08)", "purpose": "L3 fasting hero. Dark: 1px white/5 ring + 0 18px 40px rgb(0 0 0 / 0.35)." },
+      { "name": "shadow-float", "value": "0 8px 30px rgb(16 24 20 / 0.12), 0 1px 3px rgb(16 24 20 / 0.06)", "purpose": "Tab bar, bottom sheet, toast, chart tooltip. Dark: 1px white/6 ring + 0 10px 34px rgb(0 0 0 / 0.5)." },
+      { "name": "control-thumb", "value": "0 3px 8px rgb(0 0 0 / 0.1), 0 1px 1px rgb(0 0 0 / 0.06)", "purpose": "Segmented thumb, switch knob, hunger slider thumb." }
+    ],
+    "motion": [
+      { "name": "ease-ios", "value": "cubic-bezier(0.32, 0.72, 0, 1)", "purpose": "Physical controls: sheet slide (440ms), switch knob and segmented thumb (300ms)." },
+      { "name": "ease-out-soft", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Presses (180ms scale 0.97), rise-in (340ms), pop-in (200ms), bar grow (520ms), progress (700ms), line draw (900ms)." },
+      { "name": "reduced-motion", "value": "1ms", "purpose": "prefers-reduced-motion collapses every animation and transition." }
+    ],
+    "breakpoints": [
+      { "name": "content-max", "value": "34rem" },
+      { "name": "tab-bar-max", "value": "30rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Fasting Hero",
+      "kind": "card",
+      "refersTo": "hero",
+      "description": "The one L3 surface: status pill, 68px light timer, green progress, and a full-width primary action.",
+      "html": "<section class=\"ds-hero\"><span class=\"ds-pill\"><i></i>Мацаг барьж байна</span><p class=\"ds-timer\">14:32</p><p class=\"ds-cap\">мацаглаж буй хугацаа</p><div class=\"ds-prog\"><div style=\"width:72%\"></div></div><button class=\"ds-btn-primary\">Мацаг дуусгах</button></section>",
+      "css": ".ds-hero { background: var(--elevated, #fff); border-radius: 28px; box-shadow: var(--shadow-3, 0 2px 6px rgb(16 24 20 / 0.04), 0 18px 40px rgb(16 24 20 / 0.08)); padding: 16px 20px 20px; font-family: Montserrat, system-ui, sans-serif; color: var(--ink, #1c1c1e); max-width: 360px; } .ds-pill { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: var(--green-soft, rgb(47 178 122 / 0.12)); color: var(--green-ink, #1c7f54); font-size: 13px; font-weight: 600; } .ds-pill i { width: 6px; height: 6px; border-radius: 999px; background: var(--green, #2fb27a); } .ds-timer { margin: 12px 0 0; font-size: 68px; line-height: 1; font-weight: 300; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; } .ds-cap { margin: 4px 0 0; font-size: 13px; font-weight: 500; color: var(--ink-2, #66666d); } .ds-prog { margin-top: 24px; height: 12px; border-radius: 999px; background: var(--green-soft, rgb(47 178 122 / 0.12)); overflow: hidden; } .ds-prog div { height: 100%; border-radius: 999px; background: linear-gradient(90deg, color-mix(in srgb, var(--green, #2fb27a) 70%, white), var(--green, #2fb27a)); } .ds-hero .ds-btn-primary { margin-top: 20px; width: 100%; } .ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 20px; border: 0; border-radius: 16px; background: var(--green-ink, #1c7f54); color: #fff; font: 600 16px Montserrat, system-ui, sans-serif; letter-spacing: -0.01em; cursor: pointer; transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), filter 180ms; } .ds-btn-primary:active { transform: scale(0.97); filter: brightness(0.94); } .ds-btn-primary:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one full-width green action per card or sheet.",
+      "html": "<button class=\"ds-btn-primary\">Мацаг эхлүүлэх</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 20px; border: 0; border-radius: 16px; background: var(--green-ink, #1c7f54); color: #fff; font: 600 16px Montserrat, system-ui, sans-serif; letter-spacing: -0.01em; cursor: pointer; transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), filter 180ms; } .ds-btn-primary:hover { filter: brightness(1.05); } .ds-btn-primary:active { transform: scale(0.97); filter: brightness(0.94); } .ds-btn-primary:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; } .ds-btn-primary:disabled { opacity: 0.35; }"
+    },
+    {
+      "name": "Tinted Hunger Button",
+      "kind": "button",
+      "refersTo": "button-tinted-hunger",
+      "description": "A metric's soft tint with its ink text; here the amber hunger log action.",
+      "html": "<button class=\"ds-btn-tinted\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>Өлсөлт бүртгэх</button>",
+      "css": ".ds-btn-tinted { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 16px; border: 0; border-radius: 14px; background: var(--amber-soft, rgb(244 161 42 / 0.14)); color: var(--amber-ink, #a65a0a); font: 600 16px Montserrat, system-ui, sans-serif; cursor: pointer; transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), filter 180ms; } .ds-btn-tinted:hover { filter: brightness(0.98); } .ds-btn-tinted:active { transform: scale(0.97); filter: brightness(0.96); } .ds-btn-tinted:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Grouped List with Switch",
+      "kind": "custom",
+      "refersTo": "group-row",
+      "description": "White L2 group, 52px rows, inset half-pixel separators, iOS green switch.",
+      "html": "<div class=\"ds-group\"><button class=\"ds-row\" role=\"switch\" aria-checked=\"true\"><span class=\"ds-badge\" style=\"background:rgb(244 161 42 / 0.14);color:#a65a0a\">◐</span><span class=\"ds-row-label\">Цаг тутмын сануулга</span><span class=\"ds-switch on\"><i></i></span></button><button class=\"ds-row\" role=\"switch\" aria-checked=\"false\"><span class=\"ds-badge\" style=\"background:rgb(59 139 246 / 0.12);color:#1f66d1\">◒</span><span class=\"ds-row-label\">Ус</span><span class=\"ds-switch\"><i></i></span></button></div>",
+      "css": ".ds-group { background: var(--surface, #fff); border-radius: 18px; box-shadow: var(--shadow-2, 0 1px 2px rgb(16 24 20 / 0.04), 0 6px 18px rgb(16 24 20 / 0.045)); overflow: hidden; max-width: 360px; font-family: Montserrat, system-ui, sans-serif; } .ds-row { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 0 16px; border: 0; background: transparent; color: var(--ink, #1c1c1e); font-size: 15px; text-align: left; cursor: pointer; transition: background-color 160ms; } .ds-row:not(:last-child)::after { content: ''; position: absolute; left: 58px; right: 0; bottom: 0; height: 1px; transform: scaleY(0.5); transform-origin: bottom; background: var(--sep, rgb(60 60 67 / 0.12)); } .ds-row:hover { background: var(--fill-2, #f1f1f3); } .ds-row:active { background: var(--fill-2, #f1f1f3); } .ds-row:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: -2px; } .ds-row-label { flex: 1; } .ds-badge { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; font-size: 15px; } .ds-switch { position: relative; width: 51px; height: 31px; border-radius: 999px; background: var(--fill, #e9e9ec); transition: background-color 300ms; flex-shrink: 0; } .ds-switch.on { background: var(--green, #2fb27a); } .ds-switch i { position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 999px; background: #fff; box-shadow: 0 3px 8px rgb(0 0 0 / 0.15), 0 1px 1px rgb(0 0 0 / 0.16); transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1); } .ds-switch.on i { transform: translateX(20px); }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "chip",
+      "refersTo": "segmented",
+      "description": "Fill track with a sliding white thumb; 7/14/30-day ranges, theme choice.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><span class=\"ds-seg-thumb\"></span><button role=\"radio\" aria-checked=\"false\">7 хоног</button><button role=\"radio\" aria-checked=\"true\" class=\"on\">14 хоног</button><button role=\"radio\" aria-checked=\"false\">30 хоног</button></div>",
+      "css": ".ds-seg { position: relative; display: flex; max-width: 340px; padding: 3px; border-radius: 12px; background: color-mix(in srgb, var(--fill, #e9e9ec) 70%, transparent); font-family: Montserrat, system-ui, sans-serif; } .ds-seg-thumb { position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc((100% - 6px) / 3); transform: translateX(100%); border-radius: 10px; background: var(--surface, #fff); box-shadow: 0 3px 8px rgb(0 0 0 / 0.1), 0 1px 1px rgb(0 0 0 / 0.06); transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1); } .ds-seg button { position: relative; z-index: 1; flex: 1; min-height: 36px; border: 0; border-radius: 10px; background: transparent; color: var(--ink-2, #66666d); font-size: 13px; font-weight: 500; cursor: pointer; transition: color 200ms; } .ds-seg button:hover { color: var(--ink, #1c1c1e); } .ds-seg button.on { color: var(--ink, #1c1c1e); font-weight: 600; } .ds-seg button:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Metric Widget",
+      "kind": "card",
+      "refersTo": "widget",
+      "description": "148px square L2 widget: tinted badge, light numeral in the metric ink, caption foot.",
+      "html": "<button class=\"ds-widget\"><span class=\"ds-w-head\"><span class=\"ds-w-badge\">⚖</span>Жин</span><span class=\"ds-w-val\"><b>72.4</b> кг</span><span class=\"ds-w-foot\">▼ 0.6 кг</span></button>",
+      "css": ".ds-widget { display: flex; flex-direction: column; width: 148px; min-height: 148px; padding: 16px; border: 0; border-radius: 18px; background: var(--surface, #fff); box-shadow: var(--shadow-2, 0 1px 2px rgb(16 24 20 / 0.04), 0 6px 18px rgb(16 24 20 / 0.045)); text-align: left; font-family: Montserrat, system-ui, sans-serif; cursor: pointer; transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-widget:hover { transform: translateY(-1px); } .ds-widget:active { transform: scale(0.97); } .ds-widget:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; } .ds-w-head { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink-2, #66666d); } .ds-w-badge { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 10px; background: var(--teal-soft, rgb(34 165 139 / 0.12)); color: var(--teal-ink, #137a66); font-size: 14px; } .ds-w-val { margin-top: auto; padding-top: 12px; font-size: 13px; font-weight: 500; color: var(--ink-2, #66666d); font-variant-numeric: tabular-nums; } .ds-w-val b { font-size: 28px; line-height: 1; font-weight: 300; letter-spacing: -0.03em; color: var(--teal-ink, #137a66); } .ds-w-foot { margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--teal-ink, #137a66); }"
+    },
+    {
+      "name": "Floating Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab-bar",
+      "description": "Floating translucent material pill with four tabs; active tab in a green-soft pill.",
+      "html": "<nav class=\"ds-tabs\"><a class=\"on\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\"><circle cx=\"12\" cy=\"12\" r=\"8\"/></svg>Өнөөдөр</a><a href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><circle cx=\"12\" cy=\"13\" r=\"7\"/><path d=\"M12 9v4l2 2M10 3h4\"/></svg>Мацаг</a><a href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><path d=\"M4 19V9M10 19V5M16 19v-7M22 19H2\"/></svg>Түүх</a><a href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3\"/></svg>Тохиргоо</a></nav>",
+      "css": ".ds-tabs { display: flex; max-width: 480px; padding: 6px; border-radius: 26px; background: var(--material, rgb(255 255 255 / 0.72)); backdrop-filter: saturate(180%) blur(24px); -webkit-backdrop-filter: saturate(180%) blur(24px); box-shadow: var(--shadow-float, 0 8px 30px rgb(16 24 20 / 0.12), 0 1px 3px rgb(16 24 20 / 0.06)); font-family: Montserrat, system-ui, sans-serif; } .ds-tabs a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 54px; border-radius: 20px; color: var(--ink-2, #66666d); font-size: 10.5px; font-weight: 500; letter-spacing: -0.01em; text-decoration: none; transition: color 200ms, background-color 200ms, transform 200ms; } .ds-tabs a:hover { color: var(--ink, #1c1c1e); } .ds-tabs a:active { transform: scale(0.95); } .ds-tabs a:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; } .ds-tabs a.on { background: var(--green-soft, rgb(47 178 122 / 0.12)); color: var(--green-ink, #1c7f54); font-weight: 600; }"
+    },
+    {
+      "name": "Bottom Sheet",
+      "kind": "custom",
+      "refersTo": "sheet",
+      "description": "Entry sheet: grab handle, title with round close, body, footer with the one primary action.",
+      "html": "<div class=\"ds-sheet\"><div class=\"ds-handle\"><span></span></div><div class=\"ds-sheet-head\"><h2>Одоо хэр өлсөж байна?</h2><button class=\"ds-close\" aria-label=\"Хаах\"><span><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></span></button></div><div class=\"ds-readout\"><p>6</p><span>Нэлээд өлсөж байна</span></div><button class=\"ds-sheet-cta\">Бүртгэх</button></div>",
+      "css": ".ds-sheet { max-width: 380px; padding: 0 20px 20px; border-radius: 24px 24px 0 0; background: var(--surface, #fff); box-shadow: var(--shadow-float, 0 8px 30px rgb(16 24 20 / 0.12), 0 1px 3px rgb(16 24 20 / 0.06)); font-family: Montserrat, system-ui, sans-serif; color: var(--ink, #1c1c1e); } .ds-handle { display: flex; justify-content: center; align-items: center; height: 28px; } .ds-handle span { width: 36px; height: 5px; border-radius: 999px; background: var(--fill, #e9e9ec); } .ds-sheet-head { display: flex; justify-content: space-between; align-items: flex-start; } .ds-sheet-head h2 { margin: 4px 0 16px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; } .ds-close { display: grid; place-items: center; width: 44px; height: 44px; margin-top: -6px; border: 0; background: transparent; cursor: pointer; } .ds-close span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 999px; background: var(--fill-2, #f1f1f3); color: var(--ink-2, #66666d); } .ds-close:hover span { background: var(--fill, #e9e9ec); } .ds-close:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; border-radius: 999px; } .ds-readout { margin-bottom: 20px; padding: 20px 16px 16px; border-radius: 22px; text-align: center; background: color-mix(in srgb, var(--amber, #f4a12a) 15%, var(--surface, #fff)); } .ds-readout p { margin: 0; font-size: 72px; line-height: 1; font-weight: 300; letter-spacing: -0.04em; color: var(--amber-ink, #a65a0a); font-variant-numeric: tabular-nums; } .ds-readout span { display: block; margin-top: 8px; font-size: 17px; font-weight: 600; } .ds-sheet-cta { width: 100%; min-height: 52px; border: 0; border-radius: 16px; background: var(--amber-ink, #a65a0a); color: #fff; font: 600 16px Montserrat, system-ui, sans-serif; cursor: pointer; transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-sheet-cta:active { transform: scale(0.97); } .ds-sheet-cta:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; }"
+    },
+    {
+      "name": "Chart Scrub Tooltip",
+      "kind": "custom",
+      "refersTo": "chart-tooltip",
+      "description": "Elevated pop-in tooltip shown while scrubbing a chart: caption time over the value in the metric ink.",
+      "html": "<div class=\"ds-tip\"><span>15:30</span><b>6.8</b></div>",
+      "css": ".ds-tip { display: inline-block; padding: 6px 12px; border-radius: 12px; background: var(--elevated, #fff); box-shadow: var(--shadow-float, 0 8px 30px rgb(16 24 20 / 0.12), 0 1px 3px rgb(16 24 20 / 0.06)); text-align: center; font-family: Montserrat, system-ui, sans-serif; font-variant-numeric: tabular-nums; animation: ds-pop 200ms cubic-bezier(0.22, 1, 0.36, 1) both; } .ds-tip span { display: block; font-size: 12px; color: var(--ink-2, #66666d); } .ds-tip b { font-size: 15px; font-weight: 600; color: var(--amber-ink, #a65a0a); } @keyframes ds-pop { from { opacity: 0; transform: translateY(4px) scale(0.96); } to { opacity: 1; transform: none; } }"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Dark floating pill with optional undo; danger tone for errors.",
+      "html": "<div class=\"ds-toast\" role=\"status\"><span>+250 мл ус</span><button>Буцаах</button></div>",
+      "css": ".ds-toast { display: inline-flex; align-items: center; gap: 8px; padding: 6px 6px 6px 16px; border-radius: 999px; background: #2c2c2e; color: #fff; font: 500 13px Montserrat, system-ui, sans-serif; box-shadow: var(--shadow-float, 0 8px 30px rgb(16 24 20 / 0.12), 0 1px 3px rgb(16 24 20 / 0.06)); } .ds-toast button { min-height: 34px; padding: 0 14px; border: 0; border-radius: 999px; background: rgb(255 255 255 / 0.15); color: #fff; font: 600 13px Montserrat, system-ui, sans-serif; cursor: pointer; } .ds-toast button:hover, .ds-toast button:active { background: rgb(255 255 255 / 0.25); } .ds-toast button:focus-visible { outline: 2px solid var(--blue, #3b8bf6); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Pocket Health Space",
+    "overview": "Hunger Truck v3 is a private health space that should feel like it shipped with the phone. One living fasting hero sits at the top of the Today screen, a tactile amber hunger action sits directly under it, today's body signals ride a horizontal strip of small widgets, and the hunger-by-hour curve is the signature every other screen points back to. The world is borrowed from iOS conventions (grouped lists, green switches, sliding segmented thumbs, a floating material tab bar, bottom sheets) but voiced in Montserrat with large light numerals, so it reads as a premium personal app rather than an Apple Health clone.\n\nDensity is calm: one hero, then grouped white surfaces on a soft off-white canvas, generous 16–32px gaps between groups, nothing pulsing. Color is semantic, not decorative: each metric owns exactly one hue and that hue appears only on progress, series, icons, key numbers and small tinted wells. The build refuses the flat settings-form look of v2 and the generic analytics dashboard; charts appear only from recorded entries and stay single-series.",
+    "keyCharacteristics": [
+      "Three depth levels: canvas (L1), grouped surface (L2), lifted hero and floating chrome (L3).",
+      "One hue per metric: fasting green, hunger amber, water blue, sleep indigo, weight teal.",
+      "Light (300) Montserrat numerals with tabular figures as the visual anchors.",
+      "iOS-grade controls with real physics: ease-ios curve, 180–440ms.",
+      "Charted data is scrubbable by finger, with an elevated tooltip.",
+      "Premium charcoal dark mode, never pure black."
+    ],
+    "rules": [
+      { "name": "The One Hue Per Metric Rule", "body": "Fasting is green, hunger is amber, water is blue, sleep is indigo, weight is teal. A metric's hue never appears on another metric's chart or number, and no screen shows a rainbow of hues outside the widget strip.", "section": "colors" },
+      { "name": "The No Color Grounds Rule", "body": "Color never fills a canvas, group or hero background. Hues appear as fills on progress, series, icons and key numerals; as soft 12–16% tints only on small wells (badges, chips, the active tab pill, tinted buttons, the hourly nudge). One soft radial green-soft glow in the active fasting hero's corner is the only hue on a large surface.", "section": "colors" },
+      { "name": "The Ink Step Rule", "body": "Text on light uses the -ink variant of a hue, never the raw fill; the raw fill is for strokes, bars and dots.", "section": "colors" },
+      { "name": "The Red Means Real Rule", "body": "Danger appears only on delete actions and error toasts. Nothing in tracking data is ever red.", "section": "colors" },
+      { "name": "The Light Numeral Rule", "body": "Every key number is weight 300, tabular, tracked between -0.03em and -0.05em, and colored with its metric's ink (or plain ink for the fasting clock). Labels next to it drop to footnote 500 in ink-2.", "section": "typography" },
+      { "name": "The No Uppercase Rule", "body": "No tracked-out uppercase labels or eyebrows. Section names are sentence-case group titles outside the group, iOS style.", "section": "typography" },
+      { "name": "The One Hero Rule", "body": "Each screen has at most one L3 surface. Everything else is L2 on the canvas.", "section": "elevation" },
+      { "name": "The Material Only Floats Rule", "body": "Translucent blurred material (72% surface, saturate 180% blur 20–24px) is used only on the floating tab bar and the collapsed title bar. No glass on cards.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do give every metric surface its hue through a badge, a numeral, a progress fill or a series, and nothing more.",
+      "Do set key numbers in Montserrat 300 with tabular figures and tight tracking; pair them with a footnote unit in ink-2.",
+      "Do keep each screen to one L3 hero; put everything else in 18px-radius L2 groups on the canvas.",
+      "Do put small entries in a bottom sheet with one full-width primary action in the footer.",
+      "Do use ease-ios for anything that moves like a physical control and keep durations between 180 and 440ms.",
+      "Do make every chart scrubbable and back it with an sr-only value list.",
+      "Do show honest empty states (\"+ Нэмэх\", progress toward the minimum entries) instead of placeholder data."
+    ],
+    "donts": [
+      "Don't fill a canvas, group, hero or sheet background with a metric hue; tints belong on small wells only.",
+      "Don't use a metric's raw fill for text on light; use its -ink step.",
+      "Don't use red for anything except deletion and errors.",
+      "Don't put translucent material on cards; only the tab bar and collapsed title bar float.",
+      "Don't add uppercase eyebrows, kickers, streaks, badges-as-rewards or celebratory motion.",
+      "Don't draw multi-series dashboards; one metric, one hue, one chart.",
+      "Don't use pure black (#000) for the dark canvas."
+    ]
+  }
+}

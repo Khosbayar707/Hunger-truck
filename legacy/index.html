@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14161a">
+  <title>Hunger Truck</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Hunger Truck</h1>
+    <span id="clock" class="muted"></span>
+  </header>
+
+  <main>
+    <!-- ӨНӨӨДӨР -->
+    <section id="tab-today" class="tab active">
+      <div class="card fast-card">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring">
+            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+            <circle cx="60" cy="60" r="52" class="ring-fg" id="ring-fg"/>
+          </svg>
+          <div class="ring-text">
+            <div id="fast-elapsed" class="big">--:--</div>
+            <div id="fast-sub" class="muted">Мацаг эхлээгүй</div>
+          </div>
+        </div>
+        <div id="fast-stage" class="stage"></div>
+        <div class="row goal-row">
+          <label for="fast-goal" class="muted">Зорилго</label>
+          <select id="fast-goal">
+            <option value="12">12 цаг</option>
+            <option value="16" selected>16 цаг (16:8)</option>
+            <option value="18">18 цаг (18:6)</option>
+            <option value="20">20 цаг (20:4)</option>
+            <option value="24">24 цаг</option>
+            <option value="36">36 цаг</option>
+            <option value="48">48 цаг</option>
+            <option value="72">72 цаг</option>
+          </select>
+        </div>
+        <button id="fast-btn" class="btn primary wide">Мацаг эхлүүлэх</button>
+        <button id="fast-edit-start" class="btn link" hidden>Эхэлсэн цагийг засах</button>
+      </div>
+
+      <div class="card">
+        <h2>Яг одоо хэр өлсөж байна?</h2>
+        <div class="hunger-btns" id="hunger-btns">
+          <button data-level="1" class="h1">1<small>Огт үгүй</small></button>
+          <button data-level="2" class="h2">2<small>Бага зэрэг</small></button>
+          <button data-level="3" class="h3">3<small>Дунд</small></button>
+          <button data-level="4" class="h4">4<small>Их</small></button>
+          <button data-level="5" class="h5">5<small>Маш их</small></button>
+        </div>
+        <input id="hunger-note" class="input" placeholder="Тэмдэглэл (заавал биш): стресс, уйдсан, кофе уусан...">
+        <ul id="today-hunger" class="log"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Өнөөдрийн ус</h2>
+        <div class="row">
+          <div class="big-num"><span id="water-today">0</span> <small>мл</small></div>
+          <div class="row gap">
+            <button class="btn" data-water="250">+250</button>
+            <button class="btn" data-water="500">+500</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ӨЛСӨЛТ -->
+    <section id="tab-hunger" class="tab">
+      <div class="card">
+        <h2>Цаг бүрийн дундаж өлсөлт</h2>
+        <div class="row gap seg" id="range-seg">
+          <button data-days="7">7 хоног</button>
+          <button data-days="30" class="on">30 хоног</button>
+          <button data-days="0">Бүгд</button>
+        </div>
+        <div id="hour-chart" class="chart"></div>
+        <p id="hour-summary" class="summary"></p>
+      </div>
+      <div class="card">
+        <h2>Гариг × цаг</h2>
+        <div id="heatmap" class="heatmap"></div>
+        <p class="muted small">Өнгө их = илүү өлссөн. Хоосон = бүртгэлгүй.</p>
+      </div>
+      <div class="card">
+        <h2>Мацгийн хэдэн дэх цагт өлсдөг вэ</h2>
+        <div id="fast-hour-chart" class="chart"></div>
+      </div>
+      <div class="card">
+        <h2>Бүх бүртгэл</h2>
+        <ul id="all-hunger" class="log"></ul>
+      </div>
+    </section>
+
+    <!-- ҮЗҮҮЛЭЛТ -->
+    <section id="tab-metrics" class="tab">
+      <div class="card">
+        <h2>Үзүүлэлт нэмэх</h2>
+        <select id="m-type" class="input">
+          <option value="weight">Жин (кг)</option>
+          <option value="glucose">Цусан дахь сахар (ммоль/л)</option>
+          <option value="ketone">Кетон (ммоль/л)</option>
+          <option value="bp">Даралт (дээд/доод)</option>
+          <option value="hr">Зүрхний цохилт (уд/мин)</option>
+          <option value="sleep">Нойр (цаг)</option>
+          <option value="mood">Сэтгэл санаа (1–5)</option>
+          <option value="energy">Эрч хүч (1–5)</option>
+          <option value="water">Ус (мл)</option>
+        </select>
+        <div class="row gap">
+          <input id="m-val" class="input" type="number" inputmode="decimal" step="any" placeholder="Утга">
+          <input id="m-val2" class="input" type="number" inputmode="numeric" placeholder="Доод" hidden>
+        </div>
+        <input id="m-time" class="input" type="datetime-local">
+        <button id="m-add" class="btn primary wide">Хадгалах</button>
+      </div>
+      <div id="metric-cards"></div>
+    </section>
+
+    <!-- ТҮҮХ -->
+    <section id="tab-history" class="tab">
+      <div class="card">
+        <h2>Мацгийн статистик</h2>
+        <div id="fast-stats" class="stats"></div>
+      </div>
+      <div class="card">
+        <h2>Мацгийн түүх</h2>
+        <ul id="fast-history" class="log"></ul>
+      </div>
+      <div class="card">
+        <h2>Тохиргоо</h2>
+        <label class="toggle">
+          <input type="checkbox" id="set-hourly">
+          <span>Цаг тутам өлсөлт асуух</span>
+        </label>
+        <div class="row gap">
+          <label class="muted small">Чимээгүй
+            <input id="set-quiet-start" class="input mini" type="number" min="0" max="23"> –
+            <input id="set-quiet-end" class="input mini" type="number" min="0" max="23"> цаг
+          </label>
+        </div>
+        <p class="muted small">Сануулга апп нээлттэй (эсвэл саяхан нээсэн) үед найдвартай ажиллана. Тухайн цагт бүртгэл хийгээгүй бол апп нээхэд асууна.</p>
+        <div class="row gap wrap">
+          <button id="export" class="btn">Экспорт (JSON)</button>
+          <label class="btn">Импорт<input id="import" type="file" accept="application/json" hidden></label>
+          <button id="wipe" class="btn danger">Бүгдийг устгах</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabs">
+    <button data-tab="today" class="on"><span>⏱</span>Өнөөдөр</button>
+    <button data-tab="hunger"><span>📊</span>Өлсөлт</button>
+    <button data-tab="metrics"><span>❤</span>Үзүүлэлт</button>
+    <button data-tab="history"><span>☰</span>Түүх</button>
+  </nav>
+
+  <dialog id="prompt-dlg">
+    <form method="dialog">
+      <h2 id="prompt-title">Хэр өлсөж байна?</h2>
+      <div class="hunger-btns" id="prompt-btns">
+        <button value="1" class="h1">1</button>
+        <button value="2" class="h2">2</button>
+        <button value="3" class="h3">3</button>
+        <button value="4" class="h4">4</button>
+        <button value="5" class="h5">5</button>
+      </div>
+      <button value="skip" class="btn link">Алгасах</button>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
